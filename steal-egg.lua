@@ -27717,6 +27717,77 @@ end
 
 v:Finalize({ Window = v2, MainTab = defaultTab, ShowMainTab = true })
 
+-- 49hub UI skin: apply a neutral grayscale theme to the library UI created above.
+do
+    local function getGuiRoot()
+        if typeof(gethui) == "function" then
+            local ok, root = pcall(gethui)
+            if ok and typeof(root) == "Instance" then return root end
+        end
+        return game:GetService("CoreGui")
+    end
+
+    local root = getGuiRoot()
+    local function gray(v)
+        if typeof(v) ~= "Color3" then return Color3.fromRGB(0,0,0) end
+        local n = math.floor((v.R * 0.299 + v.G * 0.587 + v.B * 0.114) * 255 + 0.5)
+        n = math.clamp(n, 42, 220)
+        return Color3.fromRGB(n,n,n)
+    end
+
+    local function skinGradient(g)
+        local k = g.Color.Keypoints
+        local out = table.create(#k)
+        for i, kp in ipairs(k) do
+            local c = gray(kp.Value)
+            local lum = math.floor((c.R + c.G + c.B) / 3 * 255 + 0.5)
+            if lum > 190 then c = Color3.fromRGB(235,235,235)
+            elseif lum > 135 then c = Color3.fromRGB(150,150,150)
+            else c = Color3.fromRGB(65,65,65) end
+            out[i] = ColorSequenceKeypoint.new(kp.Time, c)
+        end
+        g.Color = ColorSequence.new(out)
+    end
+
+    local function skin(gui)
+        for _, o in ipairs(gui:GetDescendants()) do
+            pcall(function()
+                if o:IsA("Frame") or o:IsA("ScrollingFrame") or o:IsA("TextButton") or o:IsA("ImageButton") or o:IsA("TextBox") then
+                    local c = o.BackgroundColor3
+                    local lum = (c.R + c.G + c.B) / 3
+                    if lum < 0.15 then o.BackgroundColor3 = Color3.fromRGB(24,24,24)
+                    elseif lum < 0.45 then o.BackgroundColor3 = Color3.fromRGB(48,48,48)
+                    elseif lum < 0.75 then o.BackgroundColor3 = Color3.fromRGB(82,82,82)
+                    else o.BackgroundColor3 = Color3.fromRGB(145,145,145) end
+                end
+                if o:IsA("TextLabel") or o:IsA("TextButton") or o:IsA("TextBox") then
+                    local t = string.lower(o.Text or "")
+                    if t == "chilli hub" or t == "chilli" then o.Text = "49hub" end
+                    if string.find(t, "discord", 1, true) or string.find(t, "community", 1, true) then
+                        o.Visible = false
+                    else
+                        local lum = (o.TextColor3.R + o.TextColor3.G + o.TextColor3.B) / 3
+                        o.TextColor3 = lum > 0.55 and Color3.fromRGB(235,235,235) or Color3.fromRGB(185,185,185)
+                    end
+                end
+                if o:IsA("ImageLabel") or o:IsA("ImageButton") then
+                    o.ImageColor3 = Color3.fromRGB(190,190,190)
+                end
+                if o:IsA("UIStroke") then o.Color = Color3.fromRGB(88,88,88) end
+                if o:IsA("UIGradient") then skinGradient(o) end
+            end)
+        end
+    end
+
+    task.defer(function()
+        task.wait(0.15)
+        skin(root)
+        task.wait(0.5)
+        skin(root)
+    end)
+end
+
+
 task.defer(function()
 	if #tbl2 == 0 or type(readfile) ~= "function" then
 		return
