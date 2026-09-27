@@ -1,7 +1,3 @@
--- 49hub
--- Reworked UI: neutral grayscale, minimal labels, no community/branding panel.
--- Game systems/settings are retained from the supplied source; presentation-only elements are simplified.
-
 local fn, v, v2, defaultTab, Players, RunService, ReplicatedStorage, CoreGui, UserInputService, localPlayer
 local networking, fn2, tbl, v3, fn3, fn4, tbl2, fn5, fn6, tbl3
 local tbl4, fn7, tbl5, v4, v5, espSection, tbl6, color, sequence, palettes
@@ -14,12 +10,13 @@ do
 		fn = function(arg)
 			local genv = typeof(getgenv) == "function" and getgenv() or _G
 
-			if type(genv.Hub49DebugPrint) == "function" then
-				pcall(genv.Hub49DebugPrint, arg)
+			if type(genv.ChilliDebugPrint) == "function" then
+				pcall(genv.ChilliDebugPrint, arg)
 			end
 		end
 
 		task.spawn(pcall, function()
+			-- community link removed
 		end)
 
 		local function fn8()
@@ -34,7 +31,7 @@ do
 			end
 
 			local function fn10()
-				local chilliHubSaeCleanup = (typeof(getgenv) == "function" and getgenv() or _G).Hub49Cleanup
+				local chilliHubSaeCleanup = (typeof(getgenv) == "function" and getgenv() or _G).ChilliHubSaeCleanup
 
 				if type(chilliHubSaeCleanup) == "function" then
 					pcall(chilliHubSaeCleanup)
@@ -52,16 +49,16 @@ do
 
 				local tbl11 = {
 					Settings = true,
-					49hubLeftCenter = true,
-					49hubLibrarySettings = true,
-					49hubLibraryLauncher = true,
+					ChilliLeftCenter = true,
+					ChilliLibrarySettings = true,
+					ChilliLibraryLauncher = true,
 				}
 
 				local n = 0
 
 				for _, v8 in ipairs(tbl10) do
 					for _, child in ipairs(v8:GetChildren()) do
-						if child:IsA("ScreenGui") and (child:GetAttribute("49hubLibraryOwned") == true or tbl11[child.Name]) then
+						if child:IsA("ScreenGui") and (child:GetAttribute("ChilliLibraryOwned") == true or tbl11[child.Name]) then
 							pcall(function()
 								child:Destroy()
 							end)
@@ -438,13 +435,13 @@ do
 			end
 
 			local genv = typeof(getgenv) == "function" and getgenv() or _G
-			local chilliHubSaeCleanup = genv.Hub49Cleanup
+			local chilliHubSaeCleanup = genv.ChilliHubSaeCleanup
 
 			if type(chilliHubSaeCleanup) == "function" then
 				pcall(chilliHubSaeCleanup)
 			end
 
-			genv.Hub49Cleanup = function()
+			genv.ChilliHubSaeCleanup = function()
 				for i = #tbl10, 1, -1 do
 					pcall(tbl10[i])
 				end
@@ -565,7 +562,7 @@ do
 					end
 				end)
 			end
-			;(typeof(getgenv) == "function" and getgenv() or _G).Hub49ToolKeeper = chilliToolKeeper
+			;(typeof(getgenv) == "function" and getgenv() or _G).ChilliToolKeeper = chilliToolKeeper
 			task.defer(chilliToolKeeper)
 			fn4(fn12)
 		end
@@ -14754,7 +14751,7 @@ do
 			parent:SetAttribute("InvisApplied", true)
 
 			task.delay(1, function()
-				local chilliToolKeeper = (typeof(getgenv) == "function" and getgenv() or _G).Hub49ToolKeeper
+				local chilliToolKeeper = (typeof(getgenv) == "function" and getgenv() or _G).ChilliToolKeeper
 
 				if parent.Parent and type(chilliToolKeeper) == "function" then
 					pcall(chilliToolKeeper)
@@ -17637,10 +17634,10 @@ do
 			tbl15.Silver = silver
 		end
 
-		tbl15.Sakura = tbl6.PaletteFromColor(Color3.fromRGB(200, 200, 200))
-		tbl15.GreatBloom = tbl6.PaletteFromColor(Color3.fromRGB(185, 185, 185))
-		tbl15.Boss = tbl6.PaletteFromColor(Color3.fromRGB(175, 175, 175))
-		tbl15.Monstrous = tbl6.PaletteFromColor(Color3.fromRGB(150, 150, 150))
+		tbl15.Sakura = tbl6.PaletteFromColor(Color3.fromRGB(190, 190, 190))
+		tbl15.GreatBloom = tbl6.PaletteFromColor(Color3.fromRGB(175, 175, 175))
+		tbl15.Boss = tbl6.PaletteFromColor(Color3.fromRGB(160, 160, 160))
+		tbl15.Monstrous = tbl6.PaletteFromColor(Color3.fromRGB(145, 145, 145))
 
 		do
 			local rainbow = {}
@@ -24964,7 +24961,7 @@ do
 			title = arg,
 			description = table.concat(tbl9, "\n"),
 			color = fn17(v9.Color, string.upper(tostring(v9.Rarity)) == "SECRET"),
-			footer = { text = "49hub" .. dot .. "Steal An Egg", icon_url = tbl8.Logo },
+			footer = { text = "49hub", icon_url = tbl8.Logo },
 			timestamp = DateTime.now():ToIsoDate(),
 		}
 
@@ -25569,7 +25566,7 @@ do
 		v11:Set({ XScale = arg.X.Scale, XOffset = arg.X.Offset, YScale = arg.Y.Scale, YOffset = arg.Y.Offset })
 	end
 
-	local color3 = Color3.fromRGB(210, 210, 210)
+	local color3 = Color3.fromRGB(58, 255, 55)
 	local color4 = Color3.fromRGB(255, 214, 84)
 	local color5 = Color3.fromRGB(255, 96, 96)
 	local color6 = Color3.fromRGB(150, 150, 158)
@@ -26221,7 +26218,7 @@ do
 		TextSize = 14,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextColor3 = Color3.fromRGB(255, 255, 255),
-		Text = "49hub",
+		Text = "Chilli Hub",
 		ZIndex = 2,
 	}), { Color = ColorSequence.new(Color3.fromRGB(255, 120, 100), color3(255, 190, 110)) })
 
@@ -27186,6 +27183,347 @@ do
 end
 
 do
+	local v11 = v2:CreateTab({ Name = "Discord", Side = "Right", SectionsExpanded = true }):CreateSection({ Name = "Community", Expanded = true })
+	local str = "discord.gg/CJK4bs2mgT"
+	local str2 = "rbxassetid://128961717706452"
+	local n3 = 0.5
+	local n4 = 0.0909
+	local n5 = 0.2
+	local n6 = 5.4
+	local n7 = 4.2
+	local n8 = 5.2
+	local n9 = 6
+	local n10 = 3.6
+	local n11 = 6.4
+	local n12 = 2
+	local n13 = 11.4
+	local n14 = 3
+	local n15 = 0.35
+
+	local tbl13 = {
+		{
+			Color = "#FF6A55",
+			Title = "New Scripts &amp; Updates",
+			Text = "Patch notes and new game scripts are posted there first.",
+		},
+		{
+			Color = "#FFB054",
+			Title = "Giveaways",
+			Text = "Member giveaways and events are announced in the server.",
+		},
+		{
+			Color = "#9AA3FF",
+			Title = "Support",
+			Text = "Ask for help, report bugs and get answers from the team.",
+		},
+		{
+			Color = "#6EE49C",
+			Title = "Suggestions",
+			Text = "Request features and vote on what gets added next.",
+		},
+	}
+
+	local n16 = n13 + #tbl13 * (n14 + n15) + 2.4 + n5 * 2
+	local colorSequence = ColorSequence.new
+	local tbl14 = {}
+	local v12 = ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 218, 96))
+	local v13 = ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 152, 60))
+	local new = ColorSequenceKeypoint.new
+	local color3 = Color3.fromRGB
+	tbl14[1] = v12
+	tbl14[2] = v13
+
+	do
+		local values = table.pack(new(1, color3(255, 82, 64)))
+		table.move(values, 1, values.n, 3, tbl14)
+	end
+
+	local v14 = colorSequence(tbl14)
+	local color4 = Color3.fromRGB
+	local colorSequence2 = ColorSequence.new(Color3.fromRGB(74, 24, 18), color4(14, 11, 15))
+	local tbl15 = { Perks = {} }
+	local n17 = 0
+
+	local function fn12()
+		local v15 = setclipboard or toclipboard
+		local ok = type(v15) == "function" and pcall(v15, "https://discord.gg/CJK4bs2mgT") or false
+		fn8(ok and "Discord Link Copied" or "Discord Link", "https://discord.gg/CJK4bs2mgT")
+		if not tbl15.Copy then
+			return
+		end
+		n17 += 1
+		local v16 = n17
+
+		tbl15.Copy.Set({
+			Text = ok and "<b>Copied!</b>" or "<b>See Notice</b>",
+			Background = ok and "#2EB070" or "#5865F2",
+		})
+
+		task.delay(1.8, function()
+			if v16 == n17 and tbl15.Copy then
+				tbl15.Copy.Set({ Text = "<b>Copy Link</b>", Background = "#5865F2" })
+			end
+		end)
+	end
+
+	local function fn13(arg)
+		if not tbl15.Hero then
+			return
+		end
+		local n18 = n5 * 2
+		local n19 = math.max(arg, 14) - n18
+		local n20 = math.max(1, n19 - n8 - n3)
+		local n21 = math.max(1, n19 - n11 - n3 * 3)
+		local n22 = math.max(1, n19 - 1.2)
+		tbl15.Hero.Set({ Width = n19 })
+		tbl15.Title.Set({ Width = n20 })
+		tbl15.Subtitle.Set({ Width = n20 })
+		tbl15.Members.Set({ Width = n20 })
+		tbl15.Invite.Set({ Width = n19 })
+		tbl15.Label.Set({ Width = n21 })
+		tbl15.Link.Set({ Width = n21 })
+		tbl15.Copy.Set({ X = n19 - n11 - n3 })
+		tbl15.Header.Set({ Width = n19 })
+
+		for _, perk in ipairs(tbl15.Perks) do
+			perk.Frame.Set({ Width = n19 })
+			perk.Title.Set({ Width = n22 })
+			perk.Text.Set({ Width = n22 })
+		end
+
+		tbl15.Tip.Set({ Width = n19 })
+	end
+
+	local function fn14(arg)
+		tbl15.Hero = arg:Frame({
+			Name = "Hero",
+			X = n5,
+			Y = n5,
+			Width = 14,
+			Height = n6,
+			Background = "#FFFFFF",
+			Gradient = colorSequence2,
+			GradientRotation = 0,
+			Corner = 0.35,
+			StrokeColor = "#FF6A40",
+			StrokeThickness = n4,
+			StrokeTransparency = 0.55,
+		})
+
+		tbl15.Logo = arg:Image({
+			Parent = tbl15.Hero,
+			X = 0.5,
+			Y = (n6 - n7) / 2,
+			Width = n7,
+			Height = n7,
+			Image = str2,
+		})
+
+		tbl15.Title = arg:Text({
+			Parent = tbl15.Hero,
+			X = n8,
+			Y = 0.45,
+			Width = 1,
+			Height = 1.6,
+			Scale = 1.45,
+			Wrap = false,
+			Text = "<b>Chilli Hub</b>",
+			Gradient = v14,
+			GradientRotation = 0,
+			TextStrokeTransparency = 1,
+		})
+
+		tbl15.Subtitle = arg:Text({
+			Parent = tbl15.Hero,
+			X = n8,
+			Y = 2.1,
+			Width = 1,
+			Height = 1,
+			Wrap = false,
+			Text = "Official Discord Community",
+			Color = "#DCDCE8",
+		})
+
+		tbl15.Members = arg:Text({
+			Parent = tbl15.Hero,
+			X = n8,
+			Y = 3.3,
+			Width = 1,
+			Height = 1.2,
+			Wrap = false,
+			Text = string.format("<font color=\"#6EE49C\">%s</font>  <b>%s</b>  <font color=\"#B8B8CC\">Members</font>", utf8.char(9679), "130K+"),
+		})
+
+		tbl15.Invite = arg:Frame({
+			Name = "Invite",
+			X = n5,
+			Y = n9 + n5,
+			Width = 14,
+			Height = n10,
+			Background = "#000000",
+			BackgroundTransparency = 0.5,
+			Corner = 0.35,
+			StrokeColor = "#5865F2",
+			StrokeThickness = n4,
+			StrokeTransparency = 0.35,
+		})
+
+		tbl15.Label = arg:Text({
+			Parent = tbl15.Invite,
+			X = n3 + 0.1,
+			Y = 0.35,
+			Width = 1,
+			Height = 0.9,
+			Scale = 0.78,
+			Wrap = false,
+			Text = "<b>INVITE LINK</b>",
+			Color = "#9C9CB4",
+		})
+
+		tbl15.Link = arg:Text({
+			Parent = tbl15.Invite,
+			X = n3 + 0.1,
+			Y = 1.35,
+			Width = 1,
+			Height = 1.6,
+			Scale = 1.05,
+			Wrap = false,
+			Font = "code",
+			Text = str,
+		})
+
+		tbl15.Copy = arg:Button({
+			Parent = tbl15.Invite,
+			X = 14 - n11 - n3,
+			Y = (n10 - n12) / 2,
+			Width = n11,
+			Height = n12,
+			Text = "<b>Copy Link</b>",
+			Color = "#FFFFFF",
+			Scale = 1,
+			Background = "#5865F2",
+			BackgroundTransparency = 0,
+			HoverTransparency = 0.15,
+			PressTransparency = 0.3,
+			StrokeColor = "#9AA3FF",
+			StrokeThickness = n4,
+			Corner = 0.3,
+			Callback = fn12,
+		})
+
+		tbl15.Header = arg:Text({
+			X = n5 + 0.1,
+			Y = n13 - 1.15 + n5,
+			Width = 14,
+			Height = 1,
+			Scale = 0.8,
+			Wrap = false,
+			Text = "<b>WHAT YOU GET</b>",
+			Color = "#9C9CB4",
+		})
+
+		for i, v15 in ipairs(tbl13) do
+			local tbl16 = {
+				Frame = arg:Frame({
+					Name = "Perk",
+					X = n5,
+					Y = n13 + (i - 1) * (n14 + n15) + n5,
+					Width = 14,
+					Height = n14,
+					Background = "#000000",
+					BackgroundTransparency = 0.68,
+					Corner = 0.35,
+				}),
+			}
+
+			tbl16.Accent = arg:Frame({
+				Parent = tbl16.Frame,
+				X = 0.3,
+				Y = 0.45,
+				Width = 0.22,
+				Height = n14 - 0.9,
+				Background = v15.Color,
+				Corner = 0.11,
+			})
+
+			tbl16.Title = arg:Text({
+				Parent = tbl16.Frame,
+				X = 0.85,
+				Y = 0.3,
+				Width = 1,
+				Height = 1.1,
+				Wrap = false,
+				Text = "<b>" .. v15.Title .. "</b>",
+				Color = v15.Color,
+			})
+
+			tbl16.Text = arg:Text({
+				Parent = tbl16.Frame,
+				X = 0.85,
+				Y = 1.35,
+				Width = 1,
+				Height = 1.5,
+				Scale = 0.86,
+				Wrap = true,
+				Text = v15.Text,
+				Color = "#C8C8D8",
+			})
+
+			tbl15.Perks[i] = tbl16
+		end
+
+		tbl15.Tip = arg:Text({
+			X = n5 + 0.1,
+			Y = n16 - 2.2 - n5,
+			Width = 14,
+			Height = 2,
+			Scale = 0.8,
+			Wrap = true,
+			Text = "Paste the copied link into your browser or the Discord app to join.",
+			Color = "#8A8AA2",
+		})
+
+		arg:SetContentLines(n16)
+
+		arg:OnResize(function(arg2, arg3, arg4)
+			fn13(arg3 / math.max(arg4, 1))
+		end)
+
+		local max = math.max
+		fn13(arg:Width() / max(arg:Unit(), 1))
+	end
+
+	if type(v11.CreateCanvas) == "function" then
+		local v15 = v11:CreateCanvas({
+			Name = "Discord",
+			ShowTitle = false,
+			Layout = "free",
+			Style = {
+				TextScale = 0.84,
+				LineHeight = 1.1,
+				MinLines = math.ceil(n16),
+				MaxLines = math.ceil(n16),
+				BackgroundTransparency = 0.5,
+				ScrollBarColor = Color3.fromRGB(170, 174, 184),
+				TextColor = Color3.fromRGB(255, 255, 255),
+				TextStrokeTransparency = 0.7,
+			},
+			Build = fn14,
+		})
+
+		fn4(function()
+			v15:Destroy()
+		end)
+	else
+		v11:CreateText({ Name = "Discord", Text = "https://discord.gg/CJK4bs2mgT" })
+	end
+
+	if type(v11.CreateButton) == "function" then
+		v11:CreateButton({ Name = "Copy Discord Link", Callback = fn12 })
+	end
+end
+
+do
 	local image = "rbxassetid://128961717706452"
 	local n3 = 56
 	local n4 = 0.035
@@ -27698,14 +28036,14 @@ task.spawn(function()
 	end
 
 	pcall(function()
-		local chilliHubSaeCleanup = genv.Hub49Cleanup
+		local chilliHubSaeCleanup = genv.ChilliHubSaeCleanup
 
 		if type(chilliHubSaeCleanup) == "function" then
 			chilliHubSaeCleanup()
 		end
 	end)
 
-	genv.Hub49Cleanup = nil
+	genv.ChilliHubSaeCleanup = nil
 
 	pcall(function()
 		local Players2 = game:GetService("Players")
